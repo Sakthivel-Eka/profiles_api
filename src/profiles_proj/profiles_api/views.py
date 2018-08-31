@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from . import serializers
 from rest_framework import status
 
+from rest_framework import viewsets
 # Create your views here.
 
 class HelloAPIView(APIView):
@@ -36,3 +37,12 @@ class HelloAPIView(APIView):
 
     def delete(self,request,pk=None):
         return Response({'method':'delete'})
+
+class HelloViewSet(viewsets.ViewSet):
+    def list(self,request):
+        a_viewset=[
+            "Uses actions(List,Create,Retreive,Update,Partial_update,Destroy)",
+            "Automically maps URLs using routers",
+            "More functionalities with less code.",
+        ]
+        return Response({'message':'Hello!!!','a_viewset':a_viewset})
