@@ -14,6 +14,8 @@ from . import permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import filters
 
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
 
 class HelloAPIView(APIView):
     serializer_class=serializers.HelloSerializer
@@ -84,3 +86,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     permission_classes=(permissions.UpdateOwnProfile,)
     filter_backends=(filters.SearchFilter,)
     search_fields=('name','email')
+
+class LoginViewSet(viewsets.ViewSet):
+    serializer_class=AuthTokenSerializer
+    def create(self,request):
+        return ObtainAuthToken().post(request)
